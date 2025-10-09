@@ -5,7 +5,7 @@ metadata:
 spec:
   params:
     - name: target
-      value: 'https://granite-8b-vllm.apps.ocp.t4jx7.sandbox2175.opentlc.com/v1'
+      value: 'http://llama32-3b.llama-serve.svc.cluster.local:8000/v1'
     - name: model-name
       value: granite-8b
     - name: processor
