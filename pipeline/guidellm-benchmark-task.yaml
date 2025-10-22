@@ -5,7 +5,7 @@ metadata:
 spec:
   description: Run guidellm benchmark against an endpoint and extract results
   params:
-    - default: 'http://llama32-3b.llama-serve.svc.cluster.local:8000/v1'
+    - default: "http://llama32-3b.llama-serve.svc.cluster.local:8000/v1"
       description: Target endpoint URL
       name: target
       type: string
@@ -29,11 +29,11 @@ spec:
       description: Rate type for benchmark
       name: rate-type
       type: string
-    - default: '4'
+    - default: "4"
       description: Rate for benchmark
       name: rate
       type: string
-    - default: '30'
+    - default: "30"
       description: Maximum benchmark duration in seconds
       name: max-seconds
       type: string
@@ -45,7 +45,7 @@ spec:
       description: OpenAI API key for authentication
       name: api-key
       type: string
-    - default: '10'
+    - default: "10"
       description: Maximum concurrency for benchmark
       name: max-concurrency
       type: string
@@ -83,7 +83,7 @@ spec:
         TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
         echo "--- Starting benchmark ---"
-        
+
         # Check if the rate-type parameter is equal to "throughput"
         if [ "$(params.rate-type)" == "throughput" ]; then
           # If it is "throughput", run the command WITHOUT the --rate argument
@@ -119,7 +119,7 @@ spec:
         # Copy and organize results
         if [ -f "$(params.output-filename)" ]; then
           cp "$(params.output-filename)" "$RESULT_DIR/"
-          
+
           # Create summary info
           cat > "$RESULT_DIR/benchmark_info.txt" << EOF
         Model: $(params.model-name)
@@ -130,13 +130,13 @@ spec:
         Max Seconds: $(params.max-seconds)
         Timestamp: $TIMESTAMP
         EOF
-          
+
           # Set timestamp for next task in pipeline
           echo "$TIMESTAMP" > timestamp.txt
-          
+
           # Package results
           tar czf "${RESULT_DIR}_rate_$(params.rate).tar.gz" "$RESULT_DIR"
-          
+
           echo "Results packaged to: ${RESULT_DIR}.tar.gz"
           echo "Contents of workspace:"
           ls -la
